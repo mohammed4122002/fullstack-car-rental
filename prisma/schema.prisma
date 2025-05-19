@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Car {
+  id          String     @id @default(cuid())
+  name        String
+  description String
+  image       String
+  order       Int        @default(autoincrement())
+  basePrice   Float
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  categoryId  String
+  durations   Duration[]
+  extras      Extra[]
+}
+
+model Duration {
+  id        String        @id @default(cuid())
+  name      DurationType
+  price     Float
+  car   Car?      @relation(fields: [carId], references: [id])
+  carId String?
+}
+
+model Extra {
+  id        String          @id @default(cuid())
+  name      ExtraIngredient
+  price     Float
+  car   Car?        @relation(fields: [carId], references: [id])
+  carId String?
+}
+
+enum DurationType {
+  DAY
+  WEEK
+  MONTH
+  YEAR
+}
+
+enum ExtraIngredient {
+  GPS
+  BABY_SEAT
+  WIFI
+  ROOF_BOX
+}
