@@ -6,7 +6,20 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-
+model User {
+  id            String         @id @default(cuid())
+  email         String         @unique
+  password      String
+  name          String
+  image         String?
+  phone         String?
+  streetAddress String?
+  city          String?
+  postalCode    String?
+  country       String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+}
 model Car {
   id          String     @id @default(cuid())
   name        String
@@ -19,22 +32,45 @@ model Car {
   categoryId  String
   durations   Duration[]
   extras      Extra[]
+  category    Category   @relation(fields: [categoryId], references: [id])
 }
 
 model Duration {
-  id        String        @id @default(cuid())
-  name      DurationType
-  price     Float
-  car   Car?      @relation(fields: [carId], references: [id])
+  id    String       @id @default(cuid())
+  name  DurationType
+  price Float
+  car   Car?         @relation(fields: [carId], references: [id])
   carId String?
 }
 
 model Extra {
-  id        String          @id @default(cuid())
-  name      ExtraIngredient
-  price     Float
-  car   Car?        @relation(fields: [carId], references: [id])
+  id    String          @id @default(cuid())
+  name  ExtraIngredient
+  price Float
+  car   Car?            @relation(fields: [carId], references: [id])
   carId String?
+}
+
+model Category {
+  id    String @id @default(uuid())
+  name  String
+  order Int
+  cars  Car[]
+}
+model Order {
+  id            String         @id @default(uuid())
+  paid          Boolean        @default(false)
+  subTotal      Float
+  deliveryFee   Float
+  totalPrice    Float
+  userEmail     String
+  phone         String
+  streetAddress String
+  postalCode    String
+  city          String
+  country       String
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
 }
 
 enum DurationType {

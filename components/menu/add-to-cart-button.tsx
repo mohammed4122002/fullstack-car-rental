@@ -77,7 +77,7 @@ function _Duration({durations , car} : { durations :Duration[] , car : Car}) {
         
      {durations.map((duration) => ( 
         <div className="flex items-center space-x-2" key={duration.id}>
-        <RadioGroupItem value="default" id={duration.id} />
+        <RadioGroupItem value={duration.name} id={duration.id} />
         <Label htmlFor={duration.id}>{duration.name} {formatCurrency(duration.price + car.basePrice)}</Label>
       </div>
       ))}

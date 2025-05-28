@@ -1,20 +1,14 @@
 
 import MainHeading from '@/components/main-heading'
 import React from 'react'
-import { db } from "../../lib/prisma"
 import Menu from '@/components/menu'
+import { getBestRental } from '@/server/db/cars'
 
 const  BestRental =async() => {
 
+
   
-  const bestRental = await db.car.findMany({
-   
-    include: {
-      extras: true,
-      durations: true,
-    },
-  })
-console.log(bestRental);
+  const bestRental = await getBestRental();
 
  
   return (
