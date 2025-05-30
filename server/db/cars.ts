@@ -28,3 +28,21 @@ export const getBestRental = cache(
     revalidate: 3600,
   }
 );
+
+export const getCarsByCategory = cache(
+  () => {
+    const cars = db.category.findMany({
+      include: {
+        cars: {
+          include: {
+            durations: true,
+            extras: true,
+          },
+        },
+      },
+    });
+    return cars;
+  },
+  ["cars-by-category"],
+  { revalidate: 3600 }
+);
