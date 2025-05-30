@@ -8,7 +8,7 @@ const  BestRental =async() => {
 
 
   
-  const bestRental = await getBestRental();
+  const bestRental = await getBestRental(3);
 
  
   return (

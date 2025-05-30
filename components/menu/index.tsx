@@ -7,7 +7,7 @@ const Menu = ({
 }: {
   cars?: CarWithRelations[];
 }) => {
-  return (
+  return cars.length > 0 ? (
     <ul className="grid grid-cols-1 sm:grid-cols-3  gap-4">
       {cars.map((car) => (
         <MenuItem
@@ -16,7 +16,9 @@ const Menu = ({
         />
       ))}
     </ul>
-  );
+  ):(
+   <p className="text-accent text-center">No Cars Found</p>
+  ) ;
 };
 
 export default Menu;
