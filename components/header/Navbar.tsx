@@ -1,6 +1,7 @@
 "use client";
 
 import { Pages, Routes } from "@/constants/enums";
+import { v4 as uuidv4 } from "uuid";
 
 import React, { useState } from "react";
 import Link from "../Link";
@@ -10,11 +11,11 @@ import { Menu, XIcon } from "lucide-react";
 const Navbar = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const links = [
-    { id: crypto.randomUUID(), titel: "Menu", href: Routes.MENU },
-    { id: crypto.randomUUID(), titel: "About", href: Routes.ABOUT },
-    { id: crypto.randomUUID(), titel: "Contact", href: Routes.CONTACT },
+    { id: uuidv4(), titel: "Menu", href: Routes.MENU },
+    { id: uuidv4(), titel: "About", href: Routes.ABOUT },
+    { id: uuidv4(), titel: "Contact", href: Routes.CONTACT },
     {
-      id: crypto.randomUUID(),
+      id: uuidv4(),
       titel: "Login",
       href: `${Routes.AUTH}/${Pages.LOGIN}`,
     },
